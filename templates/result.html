@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JobShield AI – Result</title>
+    <title>JobShield AI - Result</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="main-container">
+<div class="hero">
+    <img src="/static/logo.png" alt="JobShield AI Logo">
+    <h1>Analysis Result</h1>
+</div>
 
-    <div class="header">
-        <h1>🛡️ JobShield AI</h1>
-        <p>Prediction Result</p>
-    </div>
+<div class="container">
 
-    <div class="result-card">
-
+    <div class="result-box" style="background-color: {{ color }};">
         <h2>{{ result }}</h2>
+        <p style="margin-top:15px;">Confidence Score: {{ confidence }}%</p>
 
-        <p><strong>Confidence Score:</strong> {{ confidence }}%</p>
-
-        <div class="progress-bar">
-            <div class="progress-fill" 
-                 style="width: {{ confidence }}%; background-color: {{ color }};">
-            </div>
+        <div class="confidence-bar">
+            <div class="confidence-fill" id="confidenceFill"></div>
         </div>
 
-        <div class="warning-text">
-            {{ warning }}
-        </div>
-
-        <div class="analysis-box">
-            <h3>Analysis Summary</h3>
-            <ul>
-                <li>Text analyzed using TF-IDF (uni & bi-grams)</li>
-                <li>Metadata features evaluated</li>
-                <li>Random Forest ensemble classification applied</li>
-                <li>Confidence-based decision threshold used</li>
-            </ul>
-        </div>
-
-        <a href="/" class="back-button">🔙 Analyze Another Job</a>
-
+        <p style="margin-top:25px;">{{ warning }}</p>
     </div>
+
+    <a href="/" style="text-decoration:none;">
+        <button>Analyze Another Posting</button>
+    </a>
 
 </div>
+
+<div class="footer">
+    © 2026 JobShield AI
+</div>
+
+<script>
+    window.onload = function() {
+        const confidence = {{ confidence }};
+        document.getElementById("confidenceFill").style.width = confidence + "%";
+    }
+</script>
 
 </body>
 </html>

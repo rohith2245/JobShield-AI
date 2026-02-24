@@ -1,58 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>JobShield AI – Fake Job Detector</title>
+    <title>JobShield AI</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="main-container">
+<!-- MASSIVE CINEMATIC HERO -->
+<div class="hero">
+    <img src="/static/logo.png" alt="JobShield AI Logo">
+    <h1>JobShield AI</h1>
+    <p>AI-Powered Fake Job Posting Detection System</p>
+</div>
 
-    <div class="header">
-        <h1>🛡️ JobShield AI</h1>
-        <p>AI-Powered Fake Job Posting Detection System</p>
+<!-- FORM SECTION -->
+<div class="container">
+
+    <div class="warning-note">
+        ⚠ Please enter correct and complete job details. Incomplete or random descriptions may lead to inaccurate predictions.
     </div>
 
-    <div class="notice">
-        ⚠️ Please enter real job posting details. 
-        Avoid typing random or incomplete descriptions as it may affect prediction accuracy.
-    </div>
+    <form method="POST">
 
-    <div class="form-card">
-        <form method="post">
+        <div class="section-title">Job Title</div>
+        <input type="text" name="title" required>
 
-            <label>Job Title</label>
-            <input name="title" required>
+        <div class="section-title">Company Profile</div>
+        <textarea name="company_profile" required></textarea>
 
-            <label>Company Profile</label>
-            <textarea name="company_profile" rows="3"></textarea>
+        <div class="section-title">Job Description</div>
+        <textarea name="description" required></textarea>
 
-            <label>Job Description</label>
-            <textarea name="description" rows="4" required></textarea>
+        <div class="section-title">Requirements</div>
+        <textarea name="requirements" required></textarea>
 
-            <label>Requirements</label>
-            <textarea name="requirements" rows="3"></textarea>
+        <div class="section-title">Benefits</div>
+        <textarea name="benefits"></textarea>
 
-            <label>Benefits</label>
-            <textarea name="benefits" rows="3"></textarea>
+        <div class="section-title">Salary Range</div>
+        <input type="text" name="salary">
 
-            <label>Salary Range</label>
-            <input name="salary">
+        <button type="submit">Analyze Job Posting</button>
 
-            <button type="submit">Analyze Job Posting</button>
+    </form>
 
-        </form>
-    </div>
+</div>
 
-    <div class="footer">
-        This system is developed for academic demonstration purposes only.
-    </div>
-    <a href="/performance" style="color:white; text-align:center; display:block; margin-top:10px;">
-View Model Performance Metrics
-</a>
-
-
+<div class="footer">
+    © 2026 JobShield AI | Advanced Machine Learning System
 </div>
 
 </body>
