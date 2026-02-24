@@ -1,41 +1,92 @@
-# JobShield AI
-An intelligent system to detect fake job postings using NLP and Machine Learning.
-
-Tech Stack:
-- Python
-- Flask
-- Scikit-learn
-- NLP
 # JobShield AI – Fake Job Posting Detection System
 
-## Overview
-JobShield AI is an NLP-based machine learning system designed to detect fraudulent job postings.
+An intelligent NLP-based Machine Learning system that detects fraudulent job postings and provides confidence-based risk warnings.
 
-## Features
-- Text preprocessing using TF-IDF (uni & bi-grams)
-- Metadata feature engineering
-- Random Forest & Logistic Regression comparison
-- ROC-AUC evaluation (0.98)
+---
+
+## 🔍 Overview
+
+JobShield AI analyzes job posting content using Natural Language Processing (NLP) and classification algorithms to determine whether a job listing is:
+
+- ✅ Genuine  
+- ⚠️ Moderately Safe  
+- ❌ Likely Fake  
+
+The system provides probability-based confidence scores to improve decision reliability and user safety.
+
+---
+
+## 🚀 Key Features
+
+- Text preprocessing (cleaning, stopword removal, lemmatization)
+- TF-IDF vectorization (uni-grams & bi-grams)
+- Metadata feature engineering (description length, salary presence)
+- Model comparison:
+  - Random Forest
+  - Logistic Regression
+- Performance evaluation using:
+  - Confusion Matrix
+  - Precision, Recall, F1-Score
+  - ROC-AUC (0.98)
 - Confidence-based risk classification
-- Flask web deployment
+- Flask-based web deployment
 
-## Tech Stack
-- Python
-- Scikit-learn
-- Pandas, NumPy
-- Flask
-- Matplotlib, Seaborn
+---
 
-## Dataset
-Kaggle Fake Job Postings Dataset:
+## 🛠 Tech Stack
+
+**Programming:** Python  
+**Machine Learning:** Scikit-learn  
+**NLP:** TF-IDF, Text Preprocessing  
+**Data Handling:** Pandas, NumPy  
+**Visualization:** Matplotlib, Seaborn  
+**Deployment:** Flask  
+
+---
+
+## 📊 Model Performance
+
+- Random Forest Accuracy: ~97%  
+- ROC-AUC Score: 0.98  
+- Strong legitimate job detection  
+- Balanced fraud detection capability  
+
+---
+
+## 📂 Dataset
+
+Kaggle Fake Job Postings Dataset:  
 https://www.kaggle.com/datasets/josereimondez/fake-jobs-posting-detection
 
-## How to Run
-1. Install requirements:
-   pip install -r requirements.txt
+---
 
-2. Train model:
-   python model/train_model.py
+## ▶️ How to Run Locally
 
-3. Run application:
-   python app.py
+### 1️⃣ Install Dependencies
+## 📈 System Workflow  
+
+User Input  
+→ Text Preprocessing  
+→ TF-IDF Feature Extraction  
+→ Metadata Feature Integration  
+→ Random Forest Prediction  
+→ Confidence Thresholding  
+→ Risk Classification Output  
+
+---
+
+## 🔮 Future Enhancements  
+
+- Integration of Transformer models (BERT)  
+- Handling class imbalance using SMOTE  
+- Real-time job portal scraping  
+- Company verification integration  
+- Deployment to cloud platform  
+
+---
+
+## 👨‍💻 Author  
+
+Rohith Veeramalla  
+B.Tech – Artificial Intelligence & Machine Learning  
+CVR College of Engineering
