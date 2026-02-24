@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JobShield AI – Fake Job Detector</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="header">
+        <h1>🛡️ JobShield AI</h1>
+        <p>AI-Powered Fake Job Posting Detection System</p>
+    </div>
+
+    <div class="notice">
+        ⚠️ Please enter real job posting details. 
+        Avoid typing random or incomplete descriptions as it may affect prediction accuracy.
+    </div>
+
+    <div class="form-card">
+        <form method="post">
+
+            <label>Job Title</label>
+            <input name="title" required>
+
+            <label>Company Profile</label>
+            <textarea name="company_profile" rows="3"></textarea>
+
+            <label>Job Description</label>
+            <textarea name="description" rows="4" required></textarea>
+
+            <label>Requirements</label>
+            <textarea name="requirements" rows="3"></textarea>
+
+            <label>Benefits</label>
+            <textarea name="benefits" rows="3"></textarea>
+
+            <label>Salary Range</label>
+            <input name="salary">
+
+            <button type="submit">Analyze Job Posting</button>
+
+        </form>
+    </div>
+
+    <div class="footer">
+        This system is developed for academic demonstration purposes only.
+    </div>
+    <a href="/performance" style="color:white; text-align:center; display:block; margin-top:10px;">
+View Model Performance Metrics
+</a>
+
+
+</div>
+
+</body>
+</html>

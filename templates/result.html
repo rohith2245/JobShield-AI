@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JobShield AI – Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="header">
+        <h1>🛡️ JobShield AI</h1>
+        <p>Prediction Result</p>
+    </div>
+
+    <div class="result-card">
+
+        <h2>{{ result }}</h2>
+
+        <p><strong>Confidence Score:</strong> {{ confidence }}%</p>
+
+        <div class="progress-bar">
+            <div class="progress-fill" 
+                 style="width: {{ confidence }}%; background-color: {{ color }};">
+            </div>
+        </div>
+
+        <div class="warning-text">
+            {{ warning }}
+        </div>
+
+        <div class="analysis-box">
+            <h3>Analysis Summary</h3>
+            <ul>
+                <li>Text analyzed using TF-IDF (uni & bi-grams)</li>
+                <li>Metadata features evaluated</li>
+                <li>Random Forest ensemble classification applied</li>
+                <li>Confidence-based decision threshold used</li>
+            </ul>
+        </div>
+
+        <a href="/" class="back-button">🔙 Analyze Another Job</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
