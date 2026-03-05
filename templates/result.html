@@ -1,45 +1,183 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>JobShield AI - Result</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-<div class="hero">
-    <img src="/static/logo.png" alt="JobShield AI Logo">
-    <h1>Analysis Result</h1>
+{% block content %}
+
+<div class="row">
+
+    <!-- Prediction Card -->
+<div class="col-md-6 d-flex">
+    <div class="card p-4 w-100">
+
+        <h5>Prediction</h5>
+
+        <h2 class="mt-3">{{ result }}</h2>
+
+        <p><strong>Confidence:</strong> {{ confidence }}%</p>
+        <p><strong>Risk Level:</strong> {{ risk_level }}</p>
+
+        <hr>
+
+        <p><strong>Model:</strong> Random Forest</p>
+        <p><strong>Feature Method:</strong> TF-IDF + Metadata</p>
+        <p><strong>Salary Mentioned:</strong> {{ "Yes" if feature_values[2] > 0 else "No" }}</p>
+
+    </div>
 </div>
 
-<div class="container">
-
-    <div class="result-box" style="background-color: {{ color }};">
-        <h2>{{ result }}</h2>
-        <p style="margin-top:15px;">Confidence Score: {{ confidence }}%</p>
-
-        <div class="confidence-bar">
-            <div class="confidence-fill" id="confidenceFill"></div>
+    <!-- Probability Chart -->
+    <div class="col-md-6 d-flex">
+        <div class="card p-4 w-100">
+            <h5>Probability Distribution</h5>
+            <canvas id="probChart"></canvas>
         </div>
-
-        <p style="margin-top:25px;">{{ warning }}</p>
     </div>
 
-    <a href="/" style="text-decoration:none;">
-        <button>Analyze Another Posting</button>
-    </a>
-
 </div>
 
-<div class="footer">
-    © 2026 JobShield AI
+
+<!-- Model Interpretation -->
+<div class="card p-4 mt-4">
+    <h5>Model Interpretation</h5>
+    <p>{{ interpretation }}</p>
 </div>
+
+
+<!-- Detected Signals -->
+<div class="card p-4 mt-4">
+    <h5>Detected Signals</h5>
+    <ul>
+        {% for s in signals %}
+        <li>{{ s }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<!-- Feature Importance -->
+<div class="card p-4 mt-4">
+    <h5>Feature Importance (Metadata Analysis)</h5>
+    <canvas id="featureChart"></canvas>
+</div>
+
+
+<!-- Model Comparison -->
+<div class="card p-4 mt-4">
+    <h5>Model Performance Comparison</h5>
+    <canvas id="modelChart"></canvas>
+</div>
+
+
+<!-- Recommendation -->
+<div class="card p-4 mt-4">
+    <h5>Recommendation</h5>
+    <p>{{ recommendation }}</p>
+</div>
+
 
 <script>
-    window.onload = function() {
-        const confidence = {{ confidence }};
-        document.getElementById("confidenceFill").style.width = confidence + "%";
+
+/////////////////////////////
+// Probability Chart
+/////////////////////////////
+
+var ctx = document.getElementById('probChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Genuine', 'Fake'],
+        datasets: [{
+            label: 'Probability (%)',
+            data: [{{ confidence }}, {{ (100 - confidence) | round(2) }}],
+            backgroundColor: ['#22c55e', '#ef4444']
+        }]
+    },
+    options: {
+        plugins:{
+            legend:{ labels:{ color:'#ffffff'} }
+        },
+        scales:{
+            x:{ ticks:{ color:'#ffffff'} },
+            y:{ ticks:{ color:'#ffffff'} }
+        }
     }
+});
+
+
+/////////////////////////////
+// Feature Importance Chart
+/////////////////////////////
+
+var fctx = document.getElementById('featureChart').getContext('2d');
+
+new Chart(fctx, {
+    type: 'bar',
+    data: {
+        labels: {{ feature_names | tojson }},
+        datasets: [{
+            label: 'Feature Impact',
+            data: {{ feature_values | tojson }},
+            backgroundColor: '#3b82f6'
+        }]
+    },
+    options: {
+        plugins:{
+            legend:{ labels:{ color:'#ffffff'} }
+        },
+        scales:{
+            x:{ ticks:{ color:'#ffffff'} },
+            y:{ ticks:{ color:'#ffffff'} }
+        }
+    }
+});
+
+
+/////////////////////////////
+// Model Comparison Chart
+/////////////////////////////
+
+var mctx = document.getElementById('modelChart').getContext('2d');
+
+new Chart(mctx, {
+    type: 'bar',
+    data: {
+        labels: ['Accuracy','Precision','Recall','F1 Score','ROC AUC'],
+        datasets: [
+        {
+            label: 'Random Forest',
+            data: [
+                {{ rf_metrics.accuracy }},
+                {{ rf_metrics.precision }},
+                {{ rf_metrics.recall }},
+                {{ rf_metrics.f1 }},
+                {{ rf_metrics.roc_auc }}
+            ],
+            backgroundColor: '#3b82f6'
+        },
+        {
+            label: 'Logistic Regression',
+            data: [
+                {{ lr_metrics.accuracy }},
+                {{ lr_metrics.precision }},
+                {{ lr_metrics.recall }},
+                {{ lr_metrics.f1 }},
+                {{ lr_metrics.roc_auc }}
+            ],
+            backgroundColor: '#f59e0b'
+        }
+        ]
+    },
+    options: {
+        plugins:{
+            legend:{ labels:{ color:'#ffffff'} }
+        },
+        scales:{
+            x:{ ticks:{ color:'#ffffff'} },
+            y:{ ticks:{ color:'#ffffff'}, min:0, max:1 }
+        }
+    }
+});
+
 </script>
 
-</body>
-</html>
+{% endblock %}
