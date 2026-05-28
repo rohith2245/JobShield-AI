@@ -39,7 +39,35 @@ app.config.from_object(Config)
 db.init_app(app)
 
 with app.app_context():
+
     db.create_all()
+
+    # ==========================================
+    # CREATE DEFAULT ADMIN
+    # ==========================================
+
+    existing_admin = User.query.filter_by(
+        email="admin@jobshield.ai"
+    ).first()
+
+    if not existing_admin:
+
+        admin_user = User(
+
+            username="admin",
+
+            email="admin@jobshield.ai",
+
+            password=hash_password("admin123"),
+
+            is_admin=True
+        )
+
+        db.session.add(admin_user)
+
+        db.session.commit()
+
+        print("Default admin created.")
 
 # =====================================================
 # LOGIN MANAGER
