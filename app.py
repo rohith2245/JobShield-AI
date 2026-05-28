@@ -303,13 +303,12 @@ def analyze():
 
         has_salary = 1 if salary.strip() != "" else 0
 
-        input_df = {
-    "combined_text": [combined_text],
-    "desc_length": [desc_length],
-    "company_profile_length": [company_profile_length],
-    "has_salary": [has_salary]
-}
-
+        input_df = pd.DataFrame([{
+    "combined_text": combined_text,
+    "desc_length": desc_length,
+    "company_profile_length": company_profile_length,
+    "has_salary": has_salary
+}])
         # ==========================================
         # PREDICTION
         # ==========================================
