@@ -237,7 +237,10 @@ def login():
         # LOGIN SUCCESS
         # ==========================================
 
-        login_user(user)
+        login_user(
+            user,
+            remember=True
+        )
 
         flash(
             "Login successful.",
@@ -245,7 +248,7 @@ def login():
         )
 
         return redirect(
-            url_for("analyze")
+        url_for("analyze")
         )
 
     return render_template("login.html")
