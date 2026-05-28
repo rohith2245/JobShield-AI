@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 data/
 model/jobshield_model.pkl
+jobshield_report.pdf
