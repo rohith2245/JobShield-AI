@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card p-4 mb-4">
+
+        <h2 class="mb-2">Analysis History</h2>
+
+        <p class="text-light">
+            View all previously analyzed job postings and verification results.
+        </p>
+
+    </div>
+
+    {% if analyses %}
+
+        <div class="row">
+
+            {% for analysis in analyses %}
+
+            <div class="col-md-6 mb-4">
+
+                <div class="card p-4 h-100">
+
+                    <h4 class="mb-3">
+                        {{ analysis.job_title }}
+                    </h4>
+
+                    <hr>
+
+                    <p>
+                        <strong>Prediction:</strong>
+
+                        {% if "GENUINE" in analysis.prediction %}
+                            <span class="badge bg-success">
+                                {{ analysis.prediction }}
+                            </span>
+
+                        {% elif "MODERATE" in analysis.prediction %}
+                            <span class="badge bg-warning text-dark">
+                                {{ analysis.prediction }}
+                            </span>
+
+                        {% else %}
+                            <span class="badge bg-danger">
+                                {{ analysis.prediction }}
+                            </span>
+
+                        {% endif %}
+                    </p>
+
+                    <p>
+                        <strong>Confidence:</strong>
+                        {{ analysis.confidence }}%
+                    </p>
+
+                    <p>
+                        <strong>Risk Level:</strong>
+                        {{ analysis.risk_level }}
+                    </p>
+
+                    <p>
+                        <strong>Trust Score:</strong>
+                        {{ analysis.trust_score }}%
+                    </p>
+
+                    <p>
+                        <strong>Verification:</strong>
+
+                        {% if analysis.verification_status == "VERIFIED" %}
+
+                            <span class="badge bg-success">
+                                VERIFIED
+                            </span>
+
+                        {% elif analysis.verification_status == "PARTIALLY VERIFIED" %}
+
+                            <span class="badge bg-warning text-dark">
+                                PARTIALLY VERIFIED
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                HIGH RISK
+                            </span>
+
+                        {% endif %}
+                    </p>
+
+                    <p>
+                        <strong>Analyzed On:</strong>
+                        {{ analysis.created_at.strftime('%d %b %Y %I:%M %p') }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="card p-5 text-center">
+
+            <h3>No Analysis History Found</h3>
+
+            <p class="text-light">
+                Start analyzing job postings to view history here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

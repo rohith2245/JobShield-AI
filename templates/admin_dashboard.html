@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="card p-4 mb-4">
+
+        <h2>
+            Admin Monitoring Dashboard
+        </h2>
+
+        <p class="text-light">
+            Recruitment fraud monitoring and analytics system.
+        </p>
+
+    </div>
+
+    <!-- Analytics Cards -->
+    <div class="row">
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card p-4 text-center h-100">
+
+                <h5>Total Users</h5>
+
+                <h2 class="mt-3">
+                    {{ total_users }}
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card p-4 text-center h-100">
+
+                <h5>Total Analyses</h5>
+
+                <h2 class="mt-3">
+                    {{ total_analyses }}
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card p-4 text-center h-100">
+
+                <h5>Fake Jobs</h5>
+
+                <h2 class="mt-3 text-danger">
+                    {{ fake_jobs }}
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card p-4 text-center h-100">
+
+                <h5>High Risk Jobs</h5>
+
+                <h2 class="mt-3 text-warning">
+                    {{ high_risk_jobs }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Recent Analyses -->
+    <div class="card p-4 mt-4">
+
+        <h4 class="mb-4">
+            Recent Fraud Analyses
+        </h4>
+
+        <div class="table-responsive">
+
+            <table class="table table-dark table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Job Title</th>
+
+                        <th>Prediction</th>
+
+                        <th>Trust Score</th>
+
+                        <th>Verification</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for analysis in recent_analyses %}
+
+                    <tr>
+
+                        <td>
+                            {{ analysis.job_title }}
+                        </td>
+
+                        <td>
+
+                            {% if "GENUINE" in analysis.prediction %}
+
+                                <span class="badge bg-success">
+                                    Genuine
+                                </span>
+
+                            {% elif "MODERATE" in analysis.prediction %}
+
+                                <span class="badge bg-warning text-dark">
+                                    Moderate
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+                                    Fake
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ analysis.trust_score }}%
+                        </td>
+
+                        <td>
+
+                            {% if analysis.verification_status == "VERIFIED" %}
+
+                                <span class="badge bg-success">
+                                    VERIFIED
+                                </span>
+
+                            {% elif analysis.verification_status == "PARTIALLY VERIFIED" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    PARTIALLY VERIFIED
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+                                    HIGH RISK
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ analysis.created_at.strftime('%d %b %Y') }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
